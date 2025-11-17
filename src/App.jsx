@@ -1,26 +1,37 @@
-import { useState } from 'react'
+import { useRef } from 'react'
+import Hero from './components/Hero'
+import HowItWorks from './components/HowItWorks'
+import LeadForm from './components/LeadForm'
+import Footer from './components/Footer'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const startRef = useRef(null)
+
+  const scrollToStart = () => {
+    const el = document.getElementById('start')
+    if (el) el.scrollIntoView({ behavior: 'smooth' })
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <header className="fixed top-0 left-0 right-0 z-20 backdrop-blur bg-white/70 border-b">
+        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+          <a href="#" className="font-extrabold text-xl text-slate-900">Apex Tax & Wealth</a>
+          <nav className="hidden sm:flex items-center gap-6 text-slate-700">
+            <a href="#how" className="hover:text-slate-900">How it works</a>
+            <a href="#start" className="hover:text-slate-900">Get started</a>
+            <a href="/test" className="hover:text-slate-900">System test</a>
+          </nav>
         </div>
-      </div>
+      </header>
+
+      <main className="pt-16">
+        <Hero onStart={scrollToStart} />
+        <HowItWorks />
+        <LeadForm ref={startRef} />
+      </main>
+
+      <Footer />
     </div>
   )
 }
